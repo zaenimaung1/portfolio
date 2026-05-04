@@ -1,0 +1,12 @@
+<svg width="520" height="560" viewBox="0 0 520 560" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="18" y="18" width="484" height="524" rx="12" fill="#00E5FF" stroke="#000" stroke-width="12"/>
+  <rect x="62" y="354" width="396" height="146" rx="18" fill="#4F46E5" stroke="#000" stroke-width="10"/>
+  <circle cx="260" cy="210" r="126" fill="#F6E27F" stroke="#000" stroke-width="10"/>
+  <path d="M130 184C151 94 238 55 321 86C373 105 403 150 408 207C365 174 310 156 248 157C201 158 159 167 130 184Z" fill="#111" stroke="#000" stroke-width="10" stroke-linejoin="round"/>
+  <circle cx="215" cy="222" r="13" fill="#000"/>
+  <circle cx="306" cy="222" r="13" fill="#000"/>
+  <path d="M223 274C247 292 276 292 300 274" stroke="#000" stroke-width="10" stroke-linecap="round"/>
+  <path d="M174 354C193 327 222 313 260 313C298 313 327 327 346 354" fill="#fff" stroke="#000" stroke-width="10" stroke-linejoin="round"/>
+  <rect x="118" y="402" width="284" height="38" rx="6" fill="#fff" stroke="#000" stroke-width="8"/>
+  <text x="260" y="429" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="900" fill="#000">FRONTEND DEV</text>
+</svg>
