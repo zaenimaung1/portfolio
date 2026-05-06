@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { ui } from "../styles";
 
 export default function ProjectCard({ project }) {
+  const techStack = project.techStack ?? [];
+
   return (
     <article
       className={`${ui.framed} flex min-w-0 flex-col bg-white transition-[transform,box-shadow] duration-[160ms] ease-in-out hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_#000000]`}
@@ -25,13 +27,15 @@ export default function ProjectCard({ project }) {
           {project.description}
         </p>
 
-        <div className={ui.stackList} aria-label={`${project.title} tech stack`}>
-          {project.techStack.map((tech) => (
-            <span key={tech} className={ui.stackItem}>
-              {tech}
-            </span>
-          ))}
-        </div>
+        {techStack.length > 0 && (
+          <div className={ui.stackList} aria-label={`${project.title} tech stack`}>
+            {techStack.map((tech) => (
+              <span key={tech} className={ui.stackItem}>
+                {tech}
+              </span>
+            ))}
+          </div>
+        )}
 
         <Link
           className={`${ui.button} ${ui.secondaryButton} mt-[18px] w-full`}

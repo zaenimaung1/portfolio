@@ -1,3 +1,4 @@
+import SocialIcon from "../components/SocialIcon";
 import { usePortfolioStore } from "../stores/portfolioStore";
 import { ui } from "../styles";
 
@@ -20,26 +21,29 @@ export default function Contact() {
 
         <div className="grid gap-3.5">
           <a
-            className={`${ui.raised} block min-w-0 [overflow-wrap:anywhere] bg-[#4f46e5] p-3.5 text-white`}
+            className={`${ui.raised} flex min-w-0 items-center gap-3 [overflow-wrap:anywhere] bg-[#4f46e5] p-3.5 text-white`}
             href={`mailto:${person.email}`}
           >
-            {person.email}
+            <SocialIcon className="h-5 w-5 shrink-0" name="mail" />
+            <span>{person.email}</span>
           </a>
           <a
-            className={`${ui.raised} block min-w-0 [overflow-wrap:anywhere] bg-[#00e5ff] p-3.5 text-black`}
+            className={`${ui.raised} flex min-w-0 items-center gap-3 [overflow-wrap:anywhere] bg-[#00e5ff] p-3.5 text-black`}
             href={`tel:${person.phone.replaceAll(" ", "")}`}
           >
-            {person.phone}
+            <SocialIcon className="h-5 w-5 shrink-0" name="phone" />
+            <span>{person.phone}</span>
           </a>
           {socials.map((social) => (
             <a
-              className={`${ui.raised} block min-w-0 [overflow-wrap:anywhere] bg-[#00e5ff] p-3.5 text-black`}
+              className={`${ui.raised} flex min-w-0 items-center gap-3 [overflow-wrap:anywhere] bg-[#00e5ff] p-3.5 text-black`}
               key={social.label}
               href={social.url}
               target="_blank"
               rel="noreferrer"
             >
-              {social.value}
+              <SocialIcon className="h-5 w-5 shrink-0" name={social.icon} />
+              <span>{social.value}</span>
             </a>
           ))}
         </div>

@@ -10,6 +10,10 @@ import dashboardImage8 from "../assets/images/dashboard8.png";
 import dashboardImage9 from "../assets/images/dashboard9.png";
 import profilePhoto from "../assets/images/zarni.png";
 import pivotImage from "../assets/images/Pivot.webp";
+import pivotAdmin from "../assets/images/pivot-admin.webp";
+import pivotApp from "../assets/images/pivot-app.webp";
+import pivotBot from "../assets/images/pivot-bot.webp";
+import pivotWeb from "../assets/images/pivot-web.webp";
 import baydinImage from "../assets/images/baydin.png";
 import baydin2 from "../assets/images/baydin2.png";
 import baydin3 from "../assets/images/baydin3.png";
@@ -33,10 +37,27 @@ const portfolio = {
     frontend: ["React", "JavaScript", "Tailwind CSS", "CSS", "Bootstrap"],
     backend: ["Node.js", "Express.js", "PHP"],
     database: ["MongoDB", "MySQL"],
+    tools: ["Git", "Vite", "npm"],
   },
   socials: [
-    { label: "GitHub", value: "github.com/zarni", url: "https://github.com/" },
-    { label: "LinkedIn", value: "linkedin.com/in/zarni", url: "https://linkedin.com/" },
+    {
+      label: "GitHub",
+      value: "github.com/zarni",
+      url: "https://github.com/zaenimaung1",
+      icon: "github",
+    },
+    {
+      label: "LinkedIn",
+      value: "linkedin.com/in/zarni",
+      url: "https://www.linkedin.com/in/zar-ni-7908b4312/",
+      icon: "linkedin",
+    },
+    {
+      label: "Telegram",
+      value: "twitter.com/zarni",
+      url: "https://twitter.com/zarni",
+      icon: "telegram",
+    },
   ],
   projects: [
     {
@@ -46,32 +67,55 @@ const portfolio = {
       description:
         "Full-stack invoice app with React and Node.js for managing and tracking invoices...",
       detailDescription:
-        "A full-stack invoice management dashboard for creating, updating, filtering, and tracking invoices. The interface focuses on fast status scanning, clear invoice details, and a responsive layout that works well across desktop and mobile screens.",
+         "The Invoice App is a full-stack web application designed to manage invoices efficiently. Users can create, edit, and organize invoices through a clean and responsive dashboard interface.\n\nThe frontend is built with React and Tailwind CSS, while the backend uses Node.js and Express to handle API requests. MongoDB is used for storing invoice data, ensuring fast and reliable data management.\n\nThe application focuses on usability, performance, and real-world functionality, making it suitable for small business or personal use.",
       detailImages: [dashboardImage, dashboardImage2, dashboardImage3, dashboardImage4, dashboardImage5, dashboardImage6, dashboardImage7, dashboardImage8,dashboardImage9],
-      techStack: ["React", "Zustand", "Node.js", "Express.js", "MongoDB" ,"Tailwind CSS"],
-      status: "Completed",
-      sourceCodeUrl: "https://github.com/zarni/invoice-app-dashboard",
+        techStack: ["Tailwind CSS", "React.JS", "Express.JS", "MongoDB", "Node.Js","FlowBite UI","JsonServer"],
+       whatILearned: [
+    "Built a full-stack application using Node.js, Express, and MongoDB",
+    "Learned how to design and build RESTful APIs",
+    "Gained experience working with MongoDB for data storage",
+    "Implemented CRUD operations for managing invoices",
+    "Integrated frontend and backend for real-time data handling",
+    "Learned how to generate and print invoices"
+  ],
+  highlights: [
+    "Full invoice management system (create, edit, delete)",
+    "Responsive and clean dashboard UI",
+    "Print/download invoice feature",
+    "Efficient data handling with MongoDB",
+    "Real-world business use case"
+  ],
+  status: "Completed",
+  sourceCodeUrl: "https://github.com/zarni/your-invoice-app"
     },
     {
       id: 2,
       title: "Pivot",
       image: pivotImage,
       description:
-        "Multiplatform AI assistant with RGA support across web,dashboard, android app and TelegramBot",
+        "An AI-powered chatbot for Myanmar SMEs and startups, featuring Telegram bot integration and smart document-based responses.",
       detailDescription:
-        "A multiplatform AI assistant experience designed for web, dashboard, Android, and Telegram bot use cases. The project explores consistent product flows, reusable interface patterns, and assistant-driven task support across several surfaces.",
-      detailImages: [pivotImage, dashboardImage, baydinImage],
+          "Pivot is an AI chatbot system designed to provide cyber law and regulation guidance for Myanmar SMEs and startups. The system supports multiple input types, including text, file uploads, and voice.\n\nMy main role in this project was developing the Telegram bot integration using Python. I worked on handling user messages, connecting the bot with the backend API, and ensuring smooth communication between users and the system.\n\nThis project was built as a team collaboration, where I also gained experience working with Git for version control and team contributions.",
+      detailImages: [pivotImage, pivotAdmin, pivotApp, pivotBot, pivotWeb],
       techStack: ["Python", "FastApi", "Langchain", "Telegram", "Next.Js","Docker","Expo","Gemini"],
        whatILearned: [
-    "Built a dynamic web application using PHP and MySQL",
-    "Learned CRUD operations and database management",
-    "Understood how frontend and backend communicate",
-    "Improved skills in handling and organizing data",
-    "Practiced writing clean and structured code",
-    "Designed a simple and user-friendly interface"
+     "Developed a Telegram bot using Python",
+    "Learned how to integrate APIs with a chatbot system",
+    "Improved understanding of backend communication and data flow",
+    "Gained experience working with AI tools like LangChain",
+    "Practiced teamwork and collaboration using Git and GitHub"
   ],
-      status: "Completed",
-      sourceCodeUrl: "https://github.com/zarni/pivot",
+      highlights: [
+    "Telegram bot integration for real-time interaction",
+    "Supports text, file, and voice inputs",
+    "AI-powered responses using document-based retrieval",
+    "Top 10 project achievement",
+    "Team-based project with real-world application"
+  ],
+  role: "Telegram Bot Developer",
+  achievement: "Top 10 Project",
+  status: "Completed",
+  sourceCodeUrl: "https://github.com/zarni/your-pivot-project",
     },
  {
   id: 3,
@@ -91,7 +135,7 @@ const portfolio = {
     "Practiced writing clean and structured code",
     "Designed a simple and user-friendly interface"
   ],
-  status: "Prototype",
+  status: "Completed",
   sourceCodeUrl: "https://github.com/zarni/task-tracker",
 }
   ],

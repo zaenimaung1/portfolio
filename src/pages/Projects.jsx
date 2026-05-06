@@ -7,10 +7,11 @@ export default function Projects() {
 
   return (
     <main className={ui.section}>
-      <div className={ui.sectionHeading}>
-        <p className={ui.eyebrow}>Selected Work</p>
-        <h1 className={ui.h1Page}>Projects with photos, descriptions, and tech stacks</h1>
-      </div>
+     <p className={`${ui.h1Page} pb-10`}>
+  <span className="bg-[linear-gradient(transparent_56%,#00e5ff_56%)]">
+    Selected Work
+  </span>
+</p>
 
       <div className="grid grid-cols-3 gap-6 max-[920px]:grid-cols-2 max-sm:grid-cols-1">
         {projects.map((project) => (
