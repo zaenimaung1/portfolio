@@ -27,8 +27,8 @@ const portfolio = {
     title: "Frontend Developer",
     location: "Myeik, Myanmar",
     photo: profilePhoto,
-    email: "hello@zarni.dev",
-    phone: "+95 9 000 000 000",
+    email: "zarnizn5048@gmail.com",
+    phone: "+95 9 791 579 929",
     intro:
       "I build bold, fast, and responsive web interfaces with React. I like turning clean layouts, useful interactions, and sharp visual systems into products people can actually enjoy using.",
     highlights: ["React UI", "Zustand State", "Responsive Design"],
@@ -53,10 +53,11 @@ const portfolio = {
       icon: "linkedin",
     },
     {
-      label: "Telegram",
-      value: "twitter.com/zarni",
-      url: "https://twitter.com/zarni",
-      icon: "telegram",
+      label: "Facebook",
+      value: "#",
+      url: "https://www.facebook.com/",
+      icon: "facebook",
+      
     },
   ],
   projects: [

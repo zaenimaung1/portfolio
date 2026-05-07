@@ -55,6 +55,15 @@ const skillIconMeta = {
   Vite: { label: "V", className: "bg-[#646cff] text-white" },
   npm: { label: "npm", className: "bg-[#cb3837] text-white" },
 };
+
+const projectCardColors = [
+ 
+  "bg-[#00e5ff]",
+  "bg-[#ff90e8]",
+  "bg-[#f6e27f]",
+  "bg-white",
+  "bg-[#f1f1f1]",
+];
 export default function Home() {
   const { person, skills, projects } = usePortfolioStore();
   const [activeSkillCategory, setActiveSkillCategory] = useState("all");
@@ -69,182 +78,347 @@ export default function Home() {
 
   return (
     <main className="grid gap-8">
-      <section className="grid grid-cols-[minmax(0,1.08fr)_minmax(280px,0.72fr)] items-stretch gap-7 border-b-4 border-black bg-[#f6e27f] py-[45px] pb-10 max-[920px]:grid-cols-1 max-sm:pt-9">
-        <div className={`${ui.card} flex flex-col justify-center`}>
-          <p className={ui.eyebrow}>{person.location}</p>
-          <h1 className={ui.h1}>
-            Hi, I am{" "}
-            <span className="inline bg-[linear-gradient(transparent_56%,#00e5ff_56%)]">
-              {person.name}
-            </span>
-            .
-          </h1>
-          <p className="mt-[22px] max-w-[680px] break-words text-[clamp(1rem,2vw,1.2rem)] font-semibold leading-[1.65]">
-            {person.intro}
-          </p>
 
-          <div className="mt-[30px] flex flex-wrap gap-3.5">
-            <Link className={`${ui.button} ${ui.primaryButton}`} to="/projects">
-              View Projects
-            </Link>
-            <Link className={`${ui.button} ${ui.secondaryButton}`} to="/contact">
-              Contact Me
-            </Link>
-          </div>
-        </div>
+      {/*  Hero section  */}
+     <section className="relative grid grid-cols-[minmax(0,1.2fr)_minmax(280px,0.8fr)] items-stretch gap-7 border-b-4 border-black bg-[#f6e27f] py-12 pb-12 max-[920px]:grid-cols-1 max-sm:pt-9">
 
-        <aside
-          className={`${ui.framed} grid content-between gap-[18px] bg-[#00e5ff] p-[18px] max-sm:p-4`}
-        >
-          <img
-            className="aspect-[1/1.08] w-full border-4 border-black bg-white object-cover"
-            src={person.photo}
-            alt={`${person.name} profile illustration`}
-          />
-          <div className="border-4 border-black bg-white p-4">
-            <p className="mb-3 mt-0 text-xl font-black text-black">{person.title}</p>
-            <div className="flex flex-wrap gap-2.5">
-              {person.highlights.map((highlight) => (
-                <span className={ui.stackItem} key={highlight}>
-                  {highlight}
-                </span>
-              ))}
-            </div>
-          </div>
-        </aside>
-      </section>
+  {/* background accent */}
+  <div className="absolute -top-4 left-10 h-6 w-6 rotate-12 bg-black max-sm:hidden" />
+  <div className="absolute bottom-6 right-14 h-4 w-4 -rotate-12 bg-[#00e5ff] border-4 border-black max-sm:hidden" />
 
-      <section
-        className={`${ui.section} -mx-4 border-y-4 border-black bg-[#00e5ff] px-4 max-sm:-mx-2.5 max-sm:px-2.5`}
+  {/* LEFT CONTENT */}
+  <div className={`${ui.card} relative flex flex-col justify-center`}>
+    <p className={`${ui.eyebrow} inline-block -rotate-2 border-4 border-black bg-white px-3 py-1 shadow-[4px_4px_0px_black]`}>
+      {person.location}
+    </p>
+
+    <h1 className={`${ui.h1} mt-5 leading-[1.05]`}>
+      Hi, I am{" "}
+      <span className="inline-block rotate-[-1deg] border-4 border-black bg-[#00e5ff] px-3 py-1 shadow-[6px_6px_0px_black]">
+        {person.name}
+      </span>
+      .
+    </h1>
+
+    <p className="mt-[22px] max-w-[680px] border-l-4 border-black pl-4 text-[clamp(1rem,2vw,1.2rem)] font-semibold leading-[1.65]">
+      {person.intro}
+    </p>
+
+    {/* CTA becomes more “designed blocks” */}
+    <div className="mt-[30px] flex flex-wrap gap-4">
+      <Link
+        className="
+          border-4 border-black bg-black px-5 py-3
+          font-black text-white shadow-[6px_6px_0px_#00e5ff]
+          transition-all hover:-translate-y-1 hover:shadow-[10px_10px_0px_#00e5ff]
+        "
+        to="/projects"
       >
-        <div className={ui.sectionHeading}>
-          <p className="mb-3 mt-0 text-sm font-black uppercase tracking-normal text-black">
-            Skill Stack
-          </p>
-          <h2 className={ui.h2}>
-            <span className="inline bg-[linear-gradient(transparent_56%,#f6e27f_56%)] px-1">
-              Tools I use to build
-            </span>
-          </h2>
-        </div>
+        View Projects →
+      </Link>
 
-        <div
-          className="mb-[18px] flex flex-wrap gap-2.5"
-          aria-label="Skill categories"
-        >
-          {skillCategories.map((category) => (
-            <button
-              className={
-                activeSkillCategory === category.key
-                  ? `${ui.raised} bg-[#22c55e] px-3.5 py-[9px] text-black focus-visible:outline-4 focus-visible:outline-offset-3 focus-visible:outline-[#4f46e5] font-extrabold`
-                  : `${ui.raised} bg-white px-3.5 py-[9px] text-black focus-visible:outline-4 focus-visible:outline-offset-3 focus-visible:outline-[#4f46e5] font-bold`
-              }
-              key={category.key}
-              type="button"
-              onClick={() => setActiveSkillCategory(category.key)}
-            >
-              {category.label}
-            </button>
+      <Link
+        className="
+          border-4 border-black bg-white px-5 py-3
+          font-black text-black shadow-[6px_6px_0px_black]
+          transition-all hover:-translate-y-1 hover:shadow-[10px_10px_0px_black]
+        "
+        to="/contact"
+      >
+        Contact Me
+      </Link>
+      
+      <button
+        type="button"
+        onClick={async () => {
+          try {
+            const res = await fetch('/Zarni_CV.pdf');
+            if (!res.ok) throw new Error('CV not found');
+            const blob = await res.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Zarni_CV.pdf';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(url);
+          } catch (err) {
+            // fallback: open the file path so user can see 404 or place file
+            window.open('/Zarni_CV.pdf', '_blank');
+          }
+        }}
+      className={`${ui.button} ${ui.primaryButton}`}
+      >
+        Download CV
+      </button>
+    </div>
+  </div>
+
+  {/* RIGHT SIDE */}
+  <aside className="relative">
+
+    {/* offset frame effect (important neubrutal trick) */}
+    <div className="absolute left-3 top-3 h-full w-full border-4 border-black bg-[#22c55e]" />
+
+    <div className={`${ui.framed} relative z-10 grid content-between gap-[18px] bg-[#00e5ff] p-[18px]`}>
+      
+      <img
+        className="aspect-[1/1.08] w-full border-4 border-black object-cover shadow-[6px_6px_0px_black]"
+        src={person.photo}
+        alt={`${person.name} profile illustration`}
+      />
+
+      <div className="border-4 border-black bg-white p-4 shadow-[4px_4px_0px_black]">
+        <p className="mb-3 text-xl font-black text-black">
+          {person.title}
+        </p>
+
+        <div className="flex flex-wrap gap-2.5">
+          {person.highlights.map((highlight) => (
+            <span className={ui.stackItem} key={highlight}>
+              {highlight}
+            </span>
           ))}
         </div>
+      </div>
+    </div>
+  </aside>
+</section>
 
-        <div className="grid grid-cols-6 gap-2.5 max-[920px]:grid-cols-2 max-sm:grid-cols-2">
-          {visibleSkills.map((skill, index) => {
-            const icon = skillIconMeta[skill] ?? {
-              label: skill.slice(0, 2).toUpperCase(),
-              className: "bg-[#00e5ff] text-black",
-            };
+            {/*  Skills section  */}
+      <section
+  className={`${ui.section} -mx-4 border-y-4 border-black bg-[#00BFFF]  py-12 px-4 max-sm:-mx-2.5 max-sm:px-2.5`}
+>
+  {/* heading */}
+  <div className={`${ui.sectionHeading} relative`}>
+    <p className="mb-3 text-sm font-black uppercase text-black">
+      Skill Stack
+    </p>
 
-            return (
-              <span
-                key={skill}
-                className={`${ui.framed} grid min-h-[92px] place-items-center gap-2.5 p-3 text-center font-black text-black transition-all duration-150 ${
-                  index % 2 === 0 ? "bg-white" : "bg-[#f1f1f1]"
-                } hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0_#000]`}
-              >
-                <span
-                  className={`inline-grid h-11 w-11 place-items-center border-[3px] border-black text-[0.8rem] font-black leading-none shadow-[3px_3px_0_#000000] ${icon.className}`}
-                  aria-hidden="true"
-                >
-                  {icon.label}
-                </span>
-                <span>{skill}</span>
-              </span>
-            );
-          })}
+    <h2 className="text-[clamp(2rem,5vw,3.35rem)] font-black leading-[1.05] text-black">
+      <span className="inline-block rotate-[-1deg] border-4 border-black bg-[#f6e27f] px-3 py-1 shadow-[6px_6px_0px_black]">
+        Tools I use to build
+      </span>
+    </h2>
+
+    {/* little accent block */}
+    <div className="absolute -top-2 right-10 h-5 w-5 rotate-12 bg-black max-sm:hidden" />
+  </div>
+
+  {/* category buttons */}
+  <div className="mb-[18px] flex flex-wrap gap-2.5">
+    {skillCategories.map((category) => {
+      const active = activeSkillCategory === category.key;
+
+      return (
+        <button
+          key={category.key}
+          type="button"
+          onClick={() => setActiveSkillCategory(category.key)}
+          className={`
+            ${ui.raised}
+            border-4 border-black px-4 py-2 text-black font-black
+            transition-all duration-150
+            ${
+              active
+                ? "bg-[#22c55e] translate-y-[2px] shadow-[2px_2px_0px_black]"
+                : "bg-white hover:-translate-y-1 hover:shadow-[6px_6px_0px_black]"
+            }
+          `}
+        >
+          {category.label}
+        </button>
+      );
+    })}
+  </div>
+
+  {/* skills */}
+  <div className="grid grid-cols-6 gap-3 max-[920px]:grid-cols-2 max-sm:grid-cols-2">
+    {visibleSkills.map((skill, index) => {
+      const icon = skillIconMeta[skill] ?? {
+        label: skill.slice(0, 2).toUpperCase(),
+        className: "bg-[#00e5ff] text-black",
+      };
+
+      return (
+        <div
+          key={skill}
+          className={`
+            ${ui.framed}
+            group relative grid min-h-[100px] place-items-center gap-2
+            border-4 border-black p-3 text-center font-black text-black
+            transition-all duration-150
+            ${
+              index % 3 === 0
+                ? "bg-white"
+                : index % 3 === 1
+                  ? "bg-[#f1f1f1]"
+                  : "bg-[#e5e5e5]"
+            }
+            hover:-translate-x-1 hover:-translate-y-1
+            hover:shadow-[8px_8px_0px_black]
+          `}
+        >
+          {/* icon */}
+          <span
+            className={`
+              grid h-11 w-11 place-items-center
+              border-4 border-black text-xs font-black
+              shadow-[4px_4px_0px_black]
+              ${icon.className}
+            `}
+          >
+            {icon.label}
+          </span>
+
+          <span className="text-sm font-extrabold">{skill}</span>
+
+          {/* hover accent */}
+          <div className="absolute -right-2 -top-2 h-3 w-3 rotate-45 bg-black opacity-0 group-hover:opacity-100" />
         </div>
-      </section>
+      );
+    })}
+  </div>
+</section>
 
       {/*  Projects preview section  */}
-      <section
-        className={`${ui.section} -mx-4 border-y-4 border-black bg-[#22c55e] px-4 max-sm:-mx-2.5 max-sm:px-2.5`}
+   <section  className={`${ui.section} -mx-4 border-y-4 border-black bg-white py-12 px-4 max-sm:-mx-2.5 max-sm:px-2.5`}>
+  {/* decorative brutal shapes */}
+  <div className="absolute -top-4 right-10 h-6 w-6 rotate-12 bg-black max-sm:hidden" />
+  <div className="absolute bottom-10 left-6 h-4 w-4 -rotate-12 bg-[#00e5ff] border-4 border-black max-sm:hidden" />
+
+  {/* header */}
+  <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+    <div>
+      <p className={`${ui.eyebrow} inline-block -rotate-2 border-4 border-black bg-white px-3 py-1 shadow-[4px_4px_0px_black]`}>
+        Projects
+      </p>
+
+      <h2 className={`${ui.h2} mt-4`}>
+        Some of my{" "}
+        <span className="inline-block rotate-[-1deg] border-4 border-black bg-[#00e5ff] px-2 shadow-[6px_6px_0px_black]">
+          recent work
+        </span>
+      </h2>
+
+      <p className="mt-5 max-w-[620px] border-l-4 border-black pl-4 text-[1rem] font-semibold leading-[1.6] text-[#1A1A1A]">
+        A few selected projects that showcase my frontend,
+        backend, and full-stack development skills.
+      </p>
+    </div>
+
+    {/* CTA becomes stronger */}
+    <Link
+      to="/projects"
+      className="
+        border-4 border-black bg-[#22c55e] px-5 py-3
+        font-black text-black shadow-[6px_6px_0px_black]
+        transition-all duration-150
+        hover:-translate-y-1 hover:shadow-[10px_10px_0px_black]
+        active:translate-y-1 active:shadow-[2px_2px_0px_black]
+      "
+    >
+      View All Projects →
+    </Link>
+  </div>
+
+  {/* grid */}
+  <div className="grid grid-cols-3 gap-6 max-[920px]:grid-cols-2 max-sm:grid-cols-1">
+    {previewProjects.map((project, index) => (
+      <div
+        key={project.id}
+        className={`
+          transition-all duration-200
+          ${index === 0 ? "md:col-span-2" : ""}
+        `}
       >
-        <div className={ui.sectionHeading}>
-          <p className="mb-3 mt-0 text-sm font-black uppercase tracking-normal text-black">
-            Project ShowCase
-          </p>
-          <div className={ui.sectionHeadingContent}>
-            <h2 className={ui.h2}>
-              <span className="inline bg-[linear-gradient(transparent_56%,#ef4444_56%)] px-1">
-                Some of my recent works
-              </span>
-            </h2>
-            <Link to="/projects" className={`${ui.button} ${ui.primaryButton}`}>
-              View All Projects
-            </Link>
+        <ProjectCard
+          project={project}
+          bgColor={projectCardColors[index % projectCardColors.length]}
+        />
+      </div>
+    ))}
+  </div>
+</section>
+
+          {/*  Timeline section  */}
+     <section
+  className={`${ui.section} -mx-4 border-y-4 border-black bg-[#D77D00] px-4 text-white max-sm:-mx-2.5 max-sm:px-2.5`}
+>
+  <div className={`${ui.sectionHeading} relative`}>
+  {/* small label badge */}
+  <div className="inline-block -rotate-2 border-4 border-black bg-white px-3 py-1 shadow-[4px_4px_0px_black]">
+    <p className="text-xs font-black uppercase tracking-wide text-black">
+      Timeline
+    </p>
+  </div>
+
+  {/* main title */}
+  <h2 className="mt-4 max-w-[780px] text-[clamp(2rem,5vw,3.5rem)] font-black leading-[1.02] text-black">
+    <span
+      className="inline-block rotate-[-1deg] border-4 border-black bg-[#ef4444]
+        px-3 py-1 text-white shadow-[6px_6px_0px_black]"
+    >
+      My Learning Journey
+    </span>
+  </h2>
+
+  {/* decorative brutal accent */}
+  <div className="absolute -top-3 right-10 h-6 w-6 rotate-12 bg-black max-sm:hidden" />
+  <div className="absolute -bottom-3 left-20 h-4 w-4 -rotate-12 bg-white border-4 border-black max-sm:hidden" />
+</div>
+
+  {/* timeline wrapper */}
+  <div className="relative mt-10">
+    {/* vertical line */}
+    <div className="absolute left-10 top-0 h-full w-[4px] bg-black max-sm:left-4" />
+
+    <div className="space-y-10">
+      {timelineItems.map((item, index) => (
+        <article
+          key={item.year}
+          className="relative grid grid-cols-[80px_minmax(0,1fr)] gap-6 max-sm:grid-cols-1"
+        >
+          {/* dot */}
+          <div className="relative flex justify-center max-sm:justify-start">
+            <div className="z-10 mt-6 h-5 w-5 rounded-full border-4 border-black bg-white shadow-[4px_4px_0px_black]" />
           </div>
-        </div>
 
-        <div className="grid grid-cols-3 gap-6 max-[920px]:grid-cols-2 max-sm:grid-cols-1">
-          {previewProjects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
-        </div>
-      </section>
+          {/* year badge */}
+          <span
+            className={`absolute left-0 top-0 translate-x-[-120px] max-sm:static max-sm:translate-x-0
+              border-4 border-black px-3 py-1 text-lg font-black shadow-[6px_6px_0px_black]
+              ${
+                index % 3 === 0
+                  ? "bg-[#4f46e5] text-white"
+                  : index % 3 === 1
+                    ? "bg-[#ef4444] text-white"
+                    : "bg-[#22c55e] text-black"
+              }`}
+          >
+            {item.year}
+          </span>
 
-      <section
-        className={`${ui.section} -mx-4 border-y-4 border-black bg-[#4f46e5] px-4 text-white max-sm:-mx-2.5 max-sm:px-2.5`}
-      >
-        <div className={ui.sectionHeading}>
-          <p className="mb-3 mt-0 text-sm font-black uppercase tracking-normal text-[#f6e27f]">
-            Timeline
-          </p>
-          <h2 className="m-0 max-w-[780px] break-words text-[clamp(2rem,5vw,3.35rem)] font-black leading-[1.02] tracking-normal text-white">
-            <span className="inline bg-[linear-gradient(transparent_56%,#ef4444_56%)] px-1">
-              My Learning Journey
-            </span>
-          </h2>
-        </div>
+          {/* content card */}
+          <div
+            className="border-4 border-black bg-white p-6 text-black
+              shadow-[8px_8px_0px_black] transition-all duration-200
+              hover:-translate-y-1 hover:shadow-[12px_12px_0px_black]"
+          >
+            <h3 className="text-[clamp(1.2rem,2.5vw,1.65rem)] font-black leading-tight">
+              {item.title}
+            </h3>
 
-        <div className="grid gap-[18px]">
-          {timelineItems.map((item, index) => (
-            <article
-              className="grid grid-cols-[120px_minmax(0,1fr)] items-stretch gap-[18px] max-sm:grid-cols-1 max-sm:gap-2.5"
-              key={item.year}
-            >
-              <span
-                className={`${ui.framed} grid min-h-28 place-items-center text-[clamp(1.4rem,3vw,2rem)] font-black max-sm:min-h-16 max-sm:justify-start max-sm:px-4 max-sm:py-3 ${
-                  index % 3 === 2
-                    ? "bg-[#22c55e] text-black"
-                    : index % 2 === 1
-                      ? "bg-[#ef4444] text-white"
-                      : "bg-[#4f46e5] text-white"
-                }`}
-              >
-                {item.year}
-              </span>
-              <div className={`${ui.framed} min-w-0 bg-white p-5`}>
-                <h3 className="m-0 break-words text-[clamp(1.2rem,2.5vw,1.65rem)] font-black leading-[1.08] text-black">
-                  {item.title}
-                </h3>
-                <p className="mt-3 mb-0 break-words font-semibold leading-[1.55] text-black">
-                  {item.description}
-                </p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
+            <p className="mt-3 font-semibold leading-relaxed">
+              {item.description}
+            </p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
     </main>
   );
 }

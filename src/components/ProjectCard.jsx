@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import { ui } from "../styles";
 
-export default function ProjectCard({ project }) {
+export default function ProjectCard({ project ,bgColor }) {
   const techStack = project.techStack ?? [];
 
   return (
     <article
-      className={`${ui.framed} flex min-w-0 flex-col bg-white transition-[transform,box-shadow] duration-[160ms] ease-in-out hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_#000000]`}
+ className={`${ui.framed} flex min-w-0 flex-col ${bgColor} transition-[transform,box-shadow] duration-[160ms] ease-in-out hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_#000000]`}
     >
       <div className="relative border-b-4 border-black bg-[#f1f1f1]">
         <img

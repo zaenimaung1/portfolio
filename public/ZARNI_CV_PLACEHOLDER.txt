@@ -1,0 +1,5 @@
+Place your CV PDF here as 'Zarni_CV.pdf'.
+
+Put the real PDF at: public/Zarni_CV.pdf
+
+The site will fetch /Zarni_CV.pdf and trigger a download when the "Download CV" button is clicked.

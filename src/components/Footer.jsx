@@ -1,36 +1,60 @@
 import SocialIcon from "./SocialIcon";
 import { usePortfolioStore } from "../stores/portfolioStore";
-import { ui } from "../styles";
 
 export default function Footer() {
   const { person, socials } = usePortfolioStore();
 
   return (
     <footer
-      className={`${ui.framed} mt-5 flex justify-between gap-[18px] bg-black p-[18px] text-white shadow-none max-sm:flex-col`}
+      className="
+        mt-10 border-t-4 border-black bg-black px-6 py-10 text-white
+      "
     >
-      <div>
-        <strong className="text-2xl">{person.name}.</strong>
-        <p className="mt-1.5 mb-0">Computer Science student with a passion for web development. Exploring the world of front-end and back-end development.</p>
-      </div>
+      <div className="mx-auto max-w-6xl">
 
-      <div className="flex flex-wrap items-center gap-2.5">
-        <p className="m-0 font-bold">Find me on:</p>
-        {socials.map((social) => (
-          <a
-            className="inline-flex min-h-10 items-center gap-2 border-[3px] border-white px-2.5 py-1.5 font-black text-white transition-transform duration-150 hover:-translate-y-0.5"
-            key={social.label}
-            href={social.url}
-            target="_blank"
-            rel="noreferrer"
-            aria-label={social.label}
-          >
-            <SocialIcon className="h-5 w-5" name={social.icon} />
-            <span>{social.label}</span>
-          </a>
-        ))}
+        {/* Top row */}
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+
+          {/* Name + intro */}
+          <div>
+            <h3 className="text-2xl font-black">
+              {person.name}.
+            </h3>
+
+            <p className="mt-2 max-w-xl text-sm leading-[1.6] opacity-80">
+              Computer Science student passionate about building clean,
+              functional web experiences.
+            </p>
+          </div>
+
+          {/* Socials */}
+          <div className="flex flex-wrap gap-2">
+            {socials.map((social) => (
+              <a
+                key={social.label}
+                href={social.url}
+                target="_blank"
+                rel="noreferrer"
+                className="
+                  inline-flex items-center gap-2
+                  border-4 border-white px-3 py-2
+                  font-bold text-white
+                  transition-all duration-150
+                  hover:-translate-y-1 hover:bg-white hover:text-black
+                "
+              >
+                <SocialIcon className="h-5 w-5" name={social.icon} />
+                {social.label}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* bottom line */}
+        <div className="mt-8 border-t-4 border-white pt-4 text-center text-xs opacity-70">
+          © {new Date().getFullYear()} {person.name}. All rights reserved.
+        </div>
       </div>
-      <p className="m-0 text-sm opacity-80">© {new Date().getFullYear()} {person.name}. All rights reserved.</p>
     </footer>
   );
 }
