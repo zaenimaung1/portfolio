@@ -21,6 +21,57 @@ const iconPaths = {
   facebook: (
   <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
 ),
+aibot: (
+  <>
+    {/* head */}
+    <rect x="5" y="7" width="14" height="12" rx="4" />
+
+    {/* face */}
+    <rect
+      x="7"
+      y="10"
+      width="10"
+      height="7"
+      rx="2"
+      fill="white"
+    />
+
+    {/* left ear */}
+    <rect x="2" y="11" width="2" height="5" rx="1" />
+
+    {/* right ear */}
+    <rect x="20" y="11" width="2" height="5" rx="1" />
+
+    {/* antenna */}
+    <line
+      x1="12"
+      y1="7"
+      x2="12"
+      y2="4"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+    />
+
+    <circle cx="12" cy="3" r="1.5" />
+
+    {/* eyes */}
+    <circle cx="10" cy="13" r="1.2" fill="black" />
+    <circle cx="14" cy="13" r="1.2" fill="black" />
+
+    {/* smile */}
+    <path
+      d="M10 15.5c1 1 3 1 4 0"
+      stroke="black"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      fill="none"
+    />
+
+    {/* chat bubble */}
+    <path d="M18 5h4a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2l-2 1v-1h0a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z" />
+  </>
+),
 };
 
 export default function SocialIcon({ name, className = "" }) {

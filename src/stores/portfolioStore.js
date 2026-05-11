@@ -20,24 +20,32 @@ import baydin3 from "../assets/images/baydin3.png";
 import baydin4 from "../assets/images/baydin4.png";
 import baydin5 from "../assets/images/baydin5.png";
 import baydin6 from "../assets/images/baydin6.png";
+import softwareClubA from "../assets/images/sfa.png"
+import softwareClub from "../assets/images/sf.png"
+import softwareClub2 from "../assets/images/sf2.png"
 
 const portfolio = {
   person: {
     name: "Zarni Maung",
-    title: "Frontend Developer",
+   title: "Junior Full Stack Web Developer",
     location: "Myeik, Myanmar",
     photo: profilePhoto,
     email: "zarnizn5048@gmail.com",
     phone: "+95 9 791 579 929",
-    intro:
-      "I build bold, fast, and responsive web interfaces with React. I like turning clean layouts, useful interactions, and sharp visual systems into products people can actually enjoy using.",
-    highlights: ["React UI", "Zustand State", "Responsive Design"],
+   intro:
+  "I build modern and responsive web applications with a focus on clean design, performance, and usability. I enjoy working on both frontend and backend development to create complete web solutions.",
+
+highlights: [
+  "Full Stack Learning",
+  "Web Applications",
+  "Problem Solving",
+],
   },
   skills: {
     frontend: ["React", "JavaScript", "Tailwind CSS", "CSS", "Bootstrap"],
     backend: ["Node.js", "Express.js", "PHP"],
     database: ["MongoDB", "MySQL"],
-    tools: ["Git", "Vite", "npm"],
+    tools: ["Git", "Vite", "npm","GitHub"],
   },
   socials: [
     {
@@ -118,8 +126,23 @@ const portfolio = {
   status: "Completed",
   sourceCodeUrl: "https://github.com/zarni/your-pivot-project",
     },
- {
+    {
   id: 3,
+  title: "PUMyeik Software",
+  image: softwareClubA,
+  description:
+    "A software solution for PUMyeik, designed to support collaboration among all students who are passionate about software development",
+  detailDescription:
+    "PUMyeik Software is a project aimed at creating a software solution for PUMyeik, a university in Myanmar. The goal of this project is to provide a platform that supports collaboration among students who are passionate about software development.\n\nThe project is currently in progress, and I am working on developing the core features and functionalities of the application. The software will include tools for project management, communication, and resource sharing to facilitate collaboration among students.\n\nThis project is an opportunity for me to apply my skills in full-stack development while also contributing to a community-driven initiative that promotes learning and collaboration in the field of software development.",
+  detailImages: [softwareClubA,softwareClub,softwareClub2],
+  techStack: ["React", "Node.js", "Express", "MongoDB"],
+   whatILearned: [],
+   highlights: [],
+  status: "In Progress",
+  sourceCodeUrl: "https://github.com/zaenimaung1/Software_club_PUMyeik"
+},
+ {
+  id: 4,
   title: "YoeYar BayDin",
   image: baydinImage,
   description:
@@ -136,10 +159,31 @@ const portfolio = {
     "Practiced writing clean and structured code",
     "Designed a simple and user-friendly interface"
   ],
+   highlights: [
+    "Dynamic question-and-answer system",
+    "Clean and simple user interface",
+    "Efficient data handling with MySQL",
+    "Real-world application of PHP and database management",
+    "Utilized external data sources for content"
+  ],
   status: "Completed",
   sourceCodeUrl: "https://github.com/zarni/task-tracker",
-}
+},
+
   ],
+  services :[{
+ label: "Web Development",
+  description : "Building responsive and modern websites using React, Node.js, Express, and modern web technologies."
+  },
+  {
+    label: "API Development",
+    description : "Creating RESTful APIs with Node.js and Express for seamless frontend-backend communication."
+  },
+  {
+    label: "Full Stack Development",
+    description : "Developing complete web applications with both frontend and backend components for a full-stack solution."
+  }
+  ]
 };
 
 export const usePortfolioStore = create(() => portfolio);

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ui } from "../styles";
+import SocialIcon from "../components/SocialIcon";
 import { usePortfolioStore } from "../stores/portfolioStore";
 
 function buildSystemPrompt({ person, projects }) {
@@ -8,30 +9,38 @@ function buildSystemPrompt({ person, projects }) {
   const projectSummaries = recentProjects
     .map((p) => {
       const stack = p.techStack?.length ? p.techStack.join(", ") : "";
-      return `- ${p.title} (${p.status ?? ""})\n  Role: ${p.role ?? ""}\n  Summary: ${p.description ?? ""}\n  Tech: ${stack}`.trim();
+
+      return `
+- ${p.title} (${p.status ?? ""})
+Role: ${p.role ?? ""}
+Summary: ${p.description ?? ""}
+Service : ${p.service ?? ""}
+Tech: ${stack}
+      `.trim();
     })
     .join("\n");
 
   return [
-    "You are ZarniPortfolio AI Bot. You help visitors learn about the portfolio owner (Zarni Maung).",
-    "Use only the information provided in the prompt. If the user asks for something not in the info, respond that you don't have that information.",
-    "Answer conversationally and concisely.",
-    "When discussing work/projects, mention recent projects: get answers from the provided project summaries.",
-    "If the user asks to contact, tell them to use the Contact section of the portfolio.",
+    "You are Zarni AI, a portfolio assistant for Zarni Maung, a junior web developer.",
+    "Keep answers short, friendly, and professional.",
+    "Focus on web development skills, projects, learning journey, and technical experience.",
+    "Use only the provided information.",
+    "Do not invent information.",
+    "If the user asks to contact Zarni, tell them to use the Contact section.",
     "---",
-    `Person: ${person?.name ?? ""}`,
+    `Name: ${person?.name ?? ""}`,
     `Title: ${person?.title ?? ""}`,
     `Location: ${person?.location ?? ""}`,
     `Intro: ${person?.intro ?? ""}`,
     `Highlights: ${(person?.highlights ?? []).join(", ")}`,
     "---",
     `Recent projects:\n${projectSummaries || "(none)"}`,
+    `Service : ${person?.service ?? ""}`,
   ].join("\n");
-}
+} 
+ 
 
 function getGeminiApiKey() {
-  // Prefer Vite env var (client-side). Use caution: this exposes the key in the browser.
-  // The safer approach is a backend proxy, but this implementation follows your request.
   return (
     import.meta.env.VITE_GEMINI_API_KEY ||
     import.meta.env.VITE_GOOGLE_GEMINI_API_KEY ||
@@ -40,7 +49,7 @@ function getGeminiApiKey() {
 }
 
 async function callGemini({ apiKey, systemPrompt, userMessage, signal }) {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${encodeURIComponent(
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${encodeURIComponent(
     apiKey
   )}`;
 
@@ -58,13 +67,15 @@ async function callGemini({ apiKey, systemPrompt, userMessage, signal }) {
     generationConfig: {
       temperature: 0.4,
       topP: 0.9,
-      maxOutputTokens: 600,
+      maxOutputTokens: 500,
     },
   };
 
   const res = await fetch(url, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify(body),
     signal,
   });
@@ -75,12 +86,11 @@ async function callGemini({ apiKey, systemPrompt, userMessage, signal }) {
   }
 
   const data = await res.json();
-  const text =
-    data?.candidates?.[0]?.content?.parts?.map((p) => p?.text).join("\n") ||
-    data?.candidates?.[0]?.content?.parts?.[0]?.text ||
-    "";
 
-  return text || "I couldn't generate a response right now.";
+  return (
+    data?.candidates?.[0]?.content?.parts?.[0]?.text ||
+    "Sorry, I couldn't generate a response."
+  );
 }
 
 export default function AIBotWidget() {
@@ -89,21 +99,22 @@ export default function AIBotWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [isThinking, setIsThinking] = useState(false);
   const [error, setError] = useState("");
-  const [messages, setMessages] = useState(() => [
+  const [input, setInput] = useState("");
+  const [showQuickQuestions, setShowQuickQuestions] = useState(true);
+  const [messages, setMessages] = useState([
     {
       id: "hello",
       role: "assistant",
       content:
-        "Hi! I’m the ZarniPortfolio AI Bot. Ask me about the projects, my recent work, or how to contact me.",
+        "Hi! I'm Zarni AI 👋\nAsk me about my projects, skills , Serive , or learning journey.",
     },
   ]);
-  const [input, setInput] = useState("");
 
   const apiKey = useMemo(() => getGeminiApiKey(), []);
 
   const systemPrompt = useMemo(
     () => buildSystemPrompt({ person, projects }),
-    [person, projects],
+    [person, projects]
   );
 
   const listRef = useRef(null);
@@ -111,48 +122,59 @@ export default function AIBotWidget() {
 
   useEffect(() => {
     if (!isOpen) return;
-    listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: "smooth" });
-  }, [messages, isOpen, isThinking]);
+
+    listRef.current?.scrollTo({
+      top: listRef.current.scrollHeight,
+      behavior: "smooth",
+    });
+  }, [messages, isThinking, isOpen]);
 
   useEffect(() => {
     return () => {
-      if (abortRef.current) abortRef.current.abort();
+      abortRef.current?.abort();
     };
   }, []);
 
   const send = async () => {
     const trimmed = input.trim();
+
     if (!trimmed || isThinking) return;
 
     setError("");
 
-    const userMsg = { id: crypto.randomUUID(), role: "user", content: trimmed };
+    const userMsg = {
+      id: crypto.randomUUID(),
+      role: "user",
+      content: trimmed,
+    };
+
     setMessages((prev) => [...prev, userMsg]);
+
     setInput("");
 
     if (!apiKey) {
-      setIsThinking(false);
-      setError(
-        "Missing Gemini API key. Set VITE_GEMINI_API_KEY in your .env file. (Key will be exposed in the browser.)",
-      );
+      setError("Missing Gemini API key.");
+
       setMessages((prev) => [
         ...prev,
         {
           id: crypto.randomUUID(),
           role: "assistant",
           content:
-            "I can’t access my Gemini API key yet. Please set VITE_GEMINI_API_KEY in a .env file and restart the dev server.",
+            "Gemini API key is missing. Please add VITE_GEMINI_API_KEY to your .env file.",
         },
       ]);
+
       return;
     }
 
     setIsThinking(true);
+
     const controller = new AbortController();
     abortRef.current = controller;
 
     try {
-      const replyText = await callGemini({
+      const reply = await callGemini({
         apiKey,
         systemPrompt,
         userMessage: trimmed,
@@ -164,19 +186,19 @@ export default function AIBotWidget() {
         {
           id: crypto.randomUUID(),
           role: "assistant",
-          content: replyText,
+          content: reply,
         },
       ]);
     } catch (e) {
-      const msg = e?.message ? String(e.message) : "Failed to call Gemini.";
-      setError(msg);
+      setError(e.message || "Failed to generate response.");
+
       setMessages((prev) => [
         ...prev,
         {
           id: crypto.randomUUID(),
           role: "assistant",
           content:
-            "Sorry—something went wrong while generating my response. Please try again.",
+            "Sorry, something went wrong while generating a response.",
         },
       ]);
     } finally {
@@ -189,52 +211,63 @@ export default function AIBotWidget() {
     void send();
   };
 
+ 
   return (
     <div className="fixed bottom-5 left-5 z-[60]">
       {!isOpen && (
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className={`${ui.framed} grid min-h-[54px] min-w-[54px] place-items-center bg-[#00e5ff] shadow-[6px_6px_0_#000000]`}
-          aria-label="Open AI chat bot"
+          className={`${ui.framed} grid min-h-[60px] min-w-[60px] place-items-center bg-[#00e5ff] shadow-[6px_6px_0_#000000] transition-all duration-200 hover:-translate-y-1 hover:shadow-[10px_10px_0_#000000]`}
         >
-          <span className="grid h-[40px] w-[40px] place-items-center border-[3px] border-black bg-white text-black font-black">
-            AI
+          <span className="grid h-[42px] w-[42px] place-items-center border-[3px] border-black bg-white font-black">
+          <svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+  fill="currentColor"
+  className="h-8 w-8"
+>
+  <SocialIcon name="aibot" />
+</svg>
           </span>
         </button>
       )}
 
       {isOpen && (
         <div
-          className={`${ui.framed} w-[min(420px,calc(100vw_-_40px))] bg-white shadow-[10px_10px_0_#000000]`}
-          role="dialog"
-          aria-label="AI chat bot"
+          className={`${ui.framed} w-[min(420px,calc(100vw_-_40px))] bg-[#f1f1f1] shadow-[10px_10px_0_#000000]`}
         >
-          <div className="flex items-center justify-between gap-3 border-b-[3px] border-black bg-[#00e5ff] p-3">
+          {/* HEADER */}
+          <div className="flex items-center justify-between border-b-[3px] border-black bg-[#00e5ff] p-3">
             <div className="flex items-center gap-3">
-              <span className="grid h-11 w-11 place-items-center border-[3px] border-black bg-white text-black font-black">
+              <span className="grid h-11 w-11 place-items-center border-[3px] border-black bg-white font-black">
                 AI
               </span>
+
               <div>
-                <p className="m-0 text-sm font-black">ChatAIBot</p>
-                <p className="m-0 text-xs font-bold text-black/80">Ask about projects & me</p>
+                <p className="m-0 text-sm font-black">
+                  Zarni's AI
+                </p>
+
+                <p className="m-0 text-xs font-bold text-black/70">
+                  Portfolio Assistant
+                </p>
               </div>
             </div>
 
             <button
               type="button"
               onClick={() => setIsOpen(false)}
-              className={`${ui.imageButton} h-10 w-10 bg-[#ef4444] text-white shadow-[4px_4px_0_#000000]`}
-              aria-label="Close AI chat bot"
+              className={`${ui.imageButton} h-10 w-10 bg-[#ef4444] text-white`}
             >
               X
             </button>
           </div>
 
+          {/* CHAT */}
           <div
             ref={listRef}
             className="max-h-[55vh] overflow-auto p-3"
-            aria-label="Chat messages"
           >
             <div className="grid gap-3">
               {messages.map((m) => (
@@ -249,8 +282,8 @@ export default function AIBotWidget() {
                   <div
                     className={
                       m.role === "user"
-                        ? "max-w-[85%] rounded-lg border-[3px] border-black bg-[#f6e27f] p-2.5 font-semibold text-black whitespace-pre-wrap"
-                        : "max-w-[85%] rounded-lg border-[3px] border-black bg-white p-2.5 font-semibold text-black whitespace-pre-wrap"
+                        ? "max-w-[85%] border-[3px] border-black bg-[#f6e27f] px-3 py-2 font-semibold text-black whitespace-pre-wrap shadow-[4px_4px_0px_black]"
+                        : "max-w-[85%] border-[3px] border-black bg-white px-3 py-2 font-semibold text-black whitespace-pre-wrap shadow-[4px_4px_0px_black]"
                     }
                   >
                     {m.content}
@@ -260,15 +293,15 @@ export default function AIBotWidget() {
 
               {isThinking && (
                 <div className="justify-self-start">
-                  <div className="max-w-[85%] rounded-lg border-[3px] border-black bg-white p-2.5 font-semibold text-black">
-                    Thinking…
+                  <div className="border-[3px] border-black bg-white px-3 py-2 font-semibold shadow-[4px_4px_0px_black]">
+                    Zarni AI is thinking...
                   </div>
                 </div>
               )}
 
               {error && (
                 <div className="justify-self-start">
-                  <div className="max-w-[85%] rounded-lg border-[3px] border-black bg-[#ef4444] p-2.5 font-bold text-white">
+                  <div className="border-[3px] border-black bg-[#ef4444] px-3 py-2 font-bold text-white shadow-[4px_4px_0px_black]">
                     {error}
                   </div>
                 </div>
@@ -276,34 +309,62 @@ export default function AIBotWidget() {
             </div>
           </div>
 
-          <form onSubmit={onSubmit} className="border-t-[3px]  border-black p-3">
-            <div className="flex  gap-2">
+          {/* QUICK QUESTIONS */}
+        {showQuickQuestions && (
+  <div className="flex flex-wrap gap-2 border-t-[3px] border-black p-3">
+    {[
+      "What projects did you build?",
+      "What technologies do you use?",
+      "Tell me about Pivot AI",
+    ].map((q) => (
+      <button
+        key={q}
+        type="button"
+        onClick={() => {
+          setInput(q);
+          setShowQuickQuestions(false);
+        }}
+        className="border-[3px] border-black bg-[#f6e27f] px-2 py-1 text-xs font-black shadow-[3px_3px_0px_black]"
+      >
+        {q}
+      </button>
+    ))}
+  </div>
+)}
+
+          {/* INPUT */}
+          <form
+            onSubmit={onSubmit}
+            className="border-t-[3px] border-black p-3"
+          >
+            <div className="flex gap-2">
               <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 rows={2}
-                className="min-h-[44px] w-full resize-none border-[3px] border-black bg-white p-2.5 font-semibold text-black outline-none focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-[#4f46e5]"
                 placeholder="Ask me anything..."
-                aria-label="Chat input"
+                className="min-h-[44px] w-full resize-none border-[3px] border-black bg-white p-2.5 font-semibold outline-none"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    void send();
+                  }
+                }}
               />
 
               <button
                 type="submit"
                 disabled={isThinking}
-                className={`${ui.button} ${ui.primaryButton} min-h-[44px] px-3.5 ${
-                  isThinking ? "opacity-70 cursor-not-allowed" : ""
+                className={`${ui.button} ${ui.primaryButton} min-h-[44px] px-4 ${
+                  isThinking ? "cursor-not-allowed opacity-70" : ""
                 }`}
-                aria-label="Send message"
               >
                 Send
               </button>
             </div>
-
-           
           </form>
         </div>
       )}
     </div>
   );
 }
-

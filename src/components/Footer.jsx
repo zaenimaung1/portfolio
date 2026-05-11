@@ -7,21 +7,21 @@ export default function Footer() {
   return (
     <footer
       className="
-        mt-10 border-t-4 border-black bg-black px-6 py-10 text-white
+        mt-10 border-t-4 border-black bg-[#4f46e5] px-6 py-10 text-white
       "
     >
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-6xl ">
 
         {/* Top row */}
         <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
 
           {/* Name + intro */}
           <div>
-            <h3 className="text-2xl font-black">
+            <h3 className="text-2xl text-black font-extrabold">
               {person.name}.
             </h3>
 
-            <p className="mt-2 max-w-xl text-sm leading-[1.6] opacity-80">
+            <p className="mt-2 max-w-xl text-sm leading-[1.6] opacity-80 text-black font-bold">
               Computer Science student passionate about building clean,
               functional web experiences.
             </p>
@@ -37,10 +37,11 @@ export default function Footer() {
                 rel="noreferrer"
                 className="
                   inline-flex items-center gap-2
-                  border-4 border-white px-3 py-2
-                  font-bold text-white
-                  transition-all duration-150
-                  hover:-translate-y-1 hover:bg-white hover:text-black
+  border-4 border-black bg-white px-3 py-2
+  font-bold text-black
+  transition-all duration-150
+  hover:-translate-y-1
+  hover:bg-black hover:text-white
                 "
               >
                 <SocialIcon className="h-5 w-5" name={social.icon} />
@@ -51,7 +52,7 @@ export default function Footer() {
         </div>
 
         {/* bottom line */}
-        <div className="mt-8 border-t-4 border-white pt-4 text-center text-xs opacity-70">
+        <div className="mt-8 border-t-4 border-white pt-4 text-center text-xs text-black opacity-70">
           © {new Date().getFullYear()} {person.name}. All rights reserved.
         </div>
       </div>

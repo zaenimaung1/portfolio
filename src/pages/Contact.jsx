@@ -15,12 +15,11 @@ export default function Contact() {
           <p className={ui.eyebrow}>Contact Me</p>
 
           <h1 className={ui.h1}>
-            Let us build a clean frontend together.
+            Let us build something great together.
           </h1>
 
           <p className="mt-6 border-l-4 border-black pl-4 text-[1.1rem] font-semibold leading-[1.7]">
-            I am open to frontend projects, portfolio feedback, internships,
-            and collaboration on React interfaces.
+            I am open to  collaborations, or just a friendly chat about tech and design. Feel free to reach out through any of the channels listed, or simply drop me an email. Let's connect and create something amazing!
           </p>
         </div>
 
