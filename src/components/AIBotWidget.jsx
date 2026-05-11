@@ -49,7 +49,7 @@ function getGeminiApiKey() {
 }
 
 async function callGemini({ apiKey, systemPrompt, userMessage, signal }) {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${encodeURIComponent(
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${encodeURIComponent(
     apiKey
   )}`;
 
@@ -294,7 +294,7 @@ export default function AIBotWidget() {
               {isThinking && (
                 <div className="justify-self-start">
                   <div className="border-[3px] border-black bg-white px-3 py-2 font-semibold shadow-[4px_4px_0px_black]">
-                    Zarni AI is thinking...
+                    Zarni's AI is thinking...
                   </div>
                 </div>
               )}
