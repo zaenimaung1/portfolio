@@ -1,4 +1,3 @@
-Here’s a clean, professional **README.md** for your portfolio GitHub repo. You can copy and paste directly.
 
 ---
 
@@ -57,8 +56,6 @@ src/
 │── main.jsx
 
 ````
-
----
 
 ## 🚀 Getting Started
 
@@ -120,4 +117,3 @@ This project is open source and available under the MIT License.
 
 ```
 
----
