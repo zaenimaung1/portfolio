@@ -3,6 +3,14 @@ import { Link, useParams } from "react-router-dom";
 import { usePortfolioStore } from "../stores/portfolioStore";
 import { ui } from "../styles";
 import { motion } from "framer-motion";
+import ArticleIcon from "@mui/icons-material/Article";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import CloseIcon from "@mui/icons-material/Close";
+import CollectionsIcon from "@mui/icons-material/Collections";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
+import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 export default function ProjectDetails() {
   const { projectId } = useParams();
@@ -139,8 +147,9 @@ export default function ProjectDetails() {
           <div className={`${ui.framed} bg-white p-6 max-sm:p-4`}>
             <div className="mb-5">
               <div className="inline-block border-4 border-black bg-[#22c55e] px-3 py-1 shadow-[4px_4px_0_#000]">
-                <p className="text-sm font-black uppercase text-black">
-                  📖 Description
+                <p className="inline-flex items-center gap-1.5 text-sm font-black uppercase text-black">
+                  <ArticleIcon fontSize="inherit" />
+                  Description
                 </p>
               </div>
 
@@ -175,8 +184,9 @@ export default function ProjectDetails() {
             <div className={`${ui.framed} bg-white p-6 max-sm:p-4`}>
               <div className="mb-5">
                 <div className="inline-block border-4 border-black bg-[#00e5ff] px-3 py-1 shadow-[4px_4px_0_#000]">
-                  <p className="text-sm font-black uppercase text-black">
-                    🖼 Gallery
+                  <p className="inline-flex items-center gap-1.5 text-sm font-black uppercase text-black">
+                    <CollectionsIcon fontSize="inherit" />
+                    Gallery
                   </p>
                 </div>
 
@@ -214,8 +224,9 @@ export default function ProjectDetails() {
           {techStack.length > 0 && (
             <div className={`${ui.framed} bg-white p-5`}>
               <div className="mb-4 inline-block border-4 border-black bg-[#f6e27f] px-3 py-1 shadow-[4px_4px_0_#000]">
-                <p className="text-sm font-black uppercase text-black">
-                  ⚙ Tech Stack
+                <p className="inline-flex items-center gap-1.5 text-sm font-black uppercase text-black">
+                  <SettingsIcon fontSize="inherit" />
+                  Tech Stack
                 </p>
               </div>
 
@@ -233,8 +244,9 @@ export default function ProjectDetails() {
           {highlights.length > 0 && (
             <div className={`${ui.framed} bg-white p-5`}>
               <div className="mb-4 inline-block border-4 border-black bg-[#ef4444] px-3 py-1 shadow-[4px_4px_0_#000]">
-                <p className="text-sm font-black uppercase text-white">
-                  🚀 Highlights
+                <p className="inline-flex items-center gap-1.5 text-sm font-black uppercase text-white">
+                  <RocketLaunchIcon fontSize="inherit" />
+                  Highlights
                 </p>
               </div>
 
@@ -256,8 +268,9 @@ export default function ProjectDetails() {
           {whatILearned.length > 0 && (
             <div className={`${ui.framed} bg-white p-5`}>
               <div className="mb-4 inline-block border-4 border-black bg-[#4f46e5] px-3 py-1 shadow-[4px_4px_0_#000]">
-                <p className="text-sm font-black uppercase text-white">
-                  📚 What I Learned
+                <p className="inline-flex items-center gap-1.5 text-sm font-black uppercase text-white">
+                  <MenuBookIcon fontSize="inherit" />
+                  What I Learned
                 </p>
               </div>
 
@@ -306,9 +319,10 @@ export default function ProjectDetails() {
             whileHover={{ y: -4 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setIsImageViewerOpen(false)}
-            className="absolute top-5 right-5 border-4 border-black bg-[#ef4444] px-4 py-2 font-black text-white"
+            className="absolute top-5 right-5 grid h-12 w-12 place-items-center border-4 border-black bg-[#ef4444] text-2xl font-black text-white"
+            aria-label="Close image viewer"
           >
-            ✕
+            <CloseIcon fontSize="inherit" />
           </motion.button>
 
           {detailImages.length > 1 && (
@@ -317,18 +331,20 @@ export default function ProjectDetails() {
                 whileHover={{ y: -4 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={goToPreviousImage}
-                className="absolute left-5 border-4 border-black bg-white px-4 py-2 text-2xl font-black"
+                className="absolute left-5 grid h-12 w-12 place-items-center border-4 border-black bg-white text-2xl font-black"
+                aria-label="Previous image"
               >
-                ←
+                <ArrowBackIcon fontSize="inherit" />
               </motion.button>
 
               <motion.button
                 whileHover={{ y: -4 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={goToNextImage}
-                className="absolute right-5 border-4 border-black bg-white px-4 py-2 text-2xl font-black"
+                className="absolute right-5 grid h-12 w-12 place-items-center border-4 border-black bg-white text-2xl font-black"
+                aria-label="Next image"
               >
-                →
+                <ArrowForwardIcon fontSize="inherit" />
               </motion.button>
             </>
           )}
@@ -343,3 +359,5 @@ export default function ProjectDetails() {
     </main>
   );
 }
+
+

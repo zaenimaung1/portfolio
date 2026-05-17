@@ -44,21 +44,8 @@ export default function Projects() {
         <div className="grid grid-cols-3 gap-6 max-[920px]:grid-cols-2 max-sm:grid-cols-1">
 
           {projects.map((project, index) => (
-            <Motion.div
+            <div
               key={project.id}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              whileHover={{
-                y: -8,
-                rotate: -1.5,
-                scale: 1.01,
-              }}
-              transition={{
-                type: "spring",
-                stiffness: 250,
-                damping: 15,
-              }}
               className="transition-all duration-200"
             >
               <ProjectCard
@@ -73,7 +60,7 @@ export default function Projects() {
                   ][index % 5]
                 }
               />
-            </Motion.div>
+            </div>
           ))}
 
         </div>

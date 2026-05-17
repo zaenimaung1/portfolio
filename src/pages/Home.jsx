@@ -6,13 +6,12 @@ import { ui } from "../styles";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { motion as Motion } from "framer-motion";
-import {
-  FaCode,
-  FaTools,
-  FaServer,
-  FaGlobe,
-} from "react-icons/fa";
-import { FaBolt } from "react-icons/fa";
+import CodeIcon from "@mui/icons-material/Code";
+import ConstructionIcon from "@mui/icons-material/Construction";
+import SendIcon from "@mui/icons-material/Send";
+import PublicIcon from "@mui/icons-material/Public";
+import SpeedIcon from "@mui/icons-material/Speed";
+import TerminalIcon from "@mui/icons-material/Terminal";
 
 const timelineItems = [
   {
@@ -80,9 +79,55 @@ const projectCardColors = [
   "bg-[#f1f1f1]",
 ];
 
+const apiEndpoints = [
+  {
+    method: "GET",
+    path: "/api/v1/profile",
+    status: "200 OK",
+    response: {
+      status: 200,
+      data: {
+        name: "Zarni Maung",
+        role: "Junior Full Stack Web Developer",
+        location: "Myeik, Myanmar",
+        availableFor: ["Frontend", "Backend", "Full Stack"],
+      },
+    },
+  },
+  {
+    method: "GET",
+    path: "/api/v1/skills",
+    status: "200 OK",
+    response: {
+      status: 200,
+      data: {
+        frontend: ["React", "JavaScript", "Tailwind CSS"],
+        backend: ["Node.js", "Express.js", "PHP"],
+        database: ["MongoDB", "MySQL"],
+      },
+    },
+  },
+  {
+    method: "POST",
+    path: "/api/v1/contact",
+    status: "201 Created",
+    response: {
+      status: 201,
+      message: "Contact request created",
+      data: {
+        email: "zarnizn5048@gmail.com",
+        responseTime: "24 hours",
+      },
+    },
+  },
+];
+
 export default function Home() {
   const { person, skills, projects, services } = usePortfolioStore();
   const [activeSkillCategory, setActiveSkillCategory] = useState("all");
+  const [activeEndpoint, setActiveEndpoint] = useState(apiEndpoints[0]);
+  const [requestCount, setRequestCount] = useState(0);
+  const [hasSentRequest, setHasSentRequest] = useState(false);
   const previewProjects = projects.slice(0, 3);
   const visibleSkills = useMemo(() => {
     if (activeSkillCategory === "all") {
@@ -127,21 +172,15 @@ export default function Home() {
             {person.intro}
           </p>
 
-          <div className="mt-8 flex flex-wrap gap-4">
-            <Link
-              to="/contact"
-              className="border-4 border-black bg-white px-5 py-3 font-black text-black shadow-[6px_6px_0px_black] transition-all duration-150 hover:-translate-y-1 hover:shadow-[10px_10px_0px_black]"
-            >
-              Contact Me
-            </Link>
-
-            <button
-              type="button"
-              className={`${ui.button} ${ui.primaryButton}`}
-            >
-              Download CV
-            </button>
-          </div>
+          <div className="mt-8">
+  <a
+    href="/Zarni_Maung_CV%20(1).pdf"
+    download="Zarni_Maung_CV.pdf"
+    className={`${ui.button} ${ui.primaryButton}`}
+  >
+    Download CV
+  </a>
+</div>
         </div>
 
         {/* RIGHT */}
@@ -174,6 +213,7 @@ export default function Home() {
 
       {/*  Skills section  */}
       <Motion.section
+        id="skills"
       
         data-aos="fade-up"
         className={`${ui.section} -mx-4 border-y-4 border-black bg-[#00BFFF]  py-12 px-4 max-sm:-mx-2.5 max-sm:px-2.5`}
@@ -276,6 +316,139 @@ export default function Home() {
           })}
         </div>
       </Motion.section>
+
+      {/*  API playground section  */}
+      <section className="border-y-4 border-black bg-white px-4 py-10 text-black">
+
+  {/* HEADER */}
+  <div className="mb-8 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+
+    <div>
+      <p className="inline-flex items-center gap-2 border-4 border-black bg-yellow-300 px-3 py-1 text-sm font-black uppercase shadow-[6px_6px_0px_black]">
+        <TerminalIcon fontSize="small" />
+        Live Endpoint
+      </p>
+
+      <h2 className="mt-4 text-5xl font-black leading-none">
+        API{" "}
+        <span className="inline-block -rotate-2 border-4 border-black bg-cyan-300 px-3 py-1 shadow-[6px_6px_0px_black]">
+          Playground
+        </span>
+      </h2>
+    </div>
+
+    <div className="border-4 border-black bg-pink-300 px-4 py-2 font-black shadow-[6px_6px_0px_black]">
+      {requestCount} requests sent
+    </div>
+  </div>
+
+  {/* MAIN CARD */}
+  <div className="border-4 border-black bg-white shadow-[10px_10px_0px_black]">
+
+    {/* TOP BAR */}
+    <div className="flex items-center justify-between border-b-4 border-black bg-gray-200 px-4 py-3">
+      <div className="flex gap-2">
+        <span className="h-3 w-3 bg-red-500 border-2 border-black" />
+        <span className="h-3 w-3 bg-yellow-400 border-2 border-black" />
+        <span className="h-3 w-3 bg-green-500 border-2 border-black" />
+      </div>
+
+      <code className="border-2 border-black bg-black px-3 py-1 text-xs font-black text-cyan-300">
+        https://api.zarni.dev
+      </code>
+    </div>
+
+    <div className="grid grid-cols-1 lg:grid-cols-2">
+
+      {/* LEFT */}
+      <div className="border-r-4 border-black p-5 space-y-6">
+
+        {/* ENDPOINTS */}
+        <div>
+          <p className="mb-2 text-xs font-black uppercase">Endpoints</p>
+
+          <div className="flex flex-wrap gap-2">
+            {apiEndpoints.map((endpoint) => {
+              const active = activeEndpoint.path === endpoint.path;
+
+              return (
+                <button
+                  key={endpoint.path}
+                  onClick={() => {
+                    setActiveEndpoint(endpoint);
+                    setHasSentRequest(false);
+                  }}
+                  className={`border-4 px-3 py-2 text-xs font-black transition active:translate-x-1 active:translate-y-1 active:shadow-none ${
+                    active
+                      ? "bg-lime-300 shadow-[5px_5px_0px_black]"
+                      : "bg-white hover:bg-gray-100 shadow-[4px_4px_0px_black]"
+                  }`}
+                >
+                  {endpoint.path}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* REQUEST URL */}
+        <div>
+          <p className="mb-2 text-xs font-black uppercase">Request URL</p>
+
+          <div className="flex border-4 border-black">
+            <span className="bg-lime-300 px-3 py-2 font-black border-r-4 border-black">
+              {activeEndpoint.method}
+            </span>
+            <code className="flex-1 bg-black px-3 py-2 text-cyan-300 font-bold break-all">
+              https://api.zarni.dev{activeEndpoint.path}
+            </code>
+          </div>
+        </div>
+
+        {/* BUTTON */}
+        <button
+          onClick={() => {
+            setRequestCount((c) => c + 1);
+            setHasSentRequest(true);
+          }}
+          className="w-full border-4 border-black bg-cyan-300 px-5 py-3 font-black shadow-[6px_6px_0px_black]
+          hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition"
+        >
+          <SendIcon fontSize="small" /> {hasSentRequest ? "Sent" : "Send Request"}
+        </button>
+
+      </div>
+
+      {/* RIGHT */}
+      <div className="p-5">
+
+        <div className="mb-3 flex justify-between">
+          <p className="text-xs font-black uppercase">Response</p>
+
+          <span className="border-2 border-black bg-lime-300 px-2 py-1 text-xs font-black">
+            {activeEndpoint.status}
+          </span>
+        </div>
+
+        {hasSentRequest ? (
+          <pre className="min-h-[260px] border-4 border-black bg-black p-4 text-green-300 font-bold overflow-auto">
+            {JSON.stringify(activeEndpoint.response, null, 2)}
+          </pre>
+        ) : (
+          <div className="min-h-[260px] grid place-items-center border-4 border-dashed border-black bg-gray-100 text-center p-4">
+            <div>
+              <p className="text-xl font-black">Ready to send request</p>
+              <p className="text-sm font-bold text-gray-600 mt-2">
+                Choose endpoint and send request to see JSON response
+              </p>
+            </div>
+          </div>
+        )}
+
+      </div>
+    </div>
+  </div>
+</section>
 
       {/*  Projects preview section  */}
       <section
@@ -524,10 +697,10 @@ export default function Home() {
             ];
 
             const serviceIcons = [
-              { key: "frontend", el: <FaCode /> },
-              { key: "tools", el: <FaTools /> },
-              { key: "speed", el: <FaBolt /> },
-              { key: "web", el: <FaGlobe /> },
+              { key: "frontend", el: <CodeIcon fontSize="inherit" /> },
+              { key: "tools", el: <ConstructionIcon fontSize="inherit" /> },
+              { key: "speed", el: <SpeedIcon fontSize="inherit" /> },
+              { key: "web", el: <PublicIcon fontSize="inherit" /> },
             ];
 
             return (
