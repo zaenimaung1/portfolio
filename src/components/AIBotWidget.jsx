@@ -218,17 +218,17 @@ export default function AIBotWidget() {
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className={`${ui.framed} grid min-h-[60px] min-w-[60px] place-items-center bg-[#00e5ff] shadow-[6px_6px_0_#000000] transition-all duration-200 hover:-translate-y-1 hover:shadow-[10px_10px_0_#000000]`}
+          aria-label="Open Zarni AI chat"
+          className="group relative grid min-h-[66px] min-w-[66px] place-items-center border-4 border-black bg-[#ff90e8] shadow-[7px_7px_0_#000000] transition-all duration-200 hover:-translate-x-1 hover:-translate-y-1 hover:bg-[#00e5ff] hover:shadow-[11px_11px_0_#000000] active:translate-x-1 active:translate-y-1 active:shadow-[3px_3px_0_#000000]"
         >
-          <span className="grid h-[42px] w-[42px] place-items-center border-[3px] border-black bg-white font-black">
-          <svg
-  xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 24 24"
-  fill="currentColor"
-  className="h-8 w-8"
->
-  <SocialIcon name="aibot" />
-</svg>
+          <span className="absolute -right-2 -top-2 h-5 w-5 border-[3px] border-black bg-[#22c55e] shadow-[3px_3px_0_#000000]" />
+
+          <span className="grid h-[46px] w-[46px] rotate-[-3deg] place-items-center border-[3px] border-black bg-white text-3xl font-black transition-transform duration-200 group-hover:rotate-[4deg] group-hover:scale-105">
+            <SocialIcon name="aibot" />
+          </span>
+
+          <span className="absolute -bottom-3 left-1/2 -translate-x-1/2 border-[3px] border-black bg-[#f6e27f] px-2 py-0.5 text-[10px] font-black uppercase tracking-wide shadow-[3px_3px_0_#000000]">
+            AI
           </span>
         </button>
       )}
