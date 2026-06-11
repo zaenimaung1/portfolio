@@ -82,7 +82,7 @@ async function callGemini({ apiKey, systemPrompt, userMessage, signal }) {
 
   if (!res.ok) {
     const text = await res.text().catch(() => "");
-    throw new Error(`Gemini request failed (${res.status}). ${text}`);
+    throw new Error(`Gemini request failed. ${text}`);
   }
 
   const data = await res.json();
@@ -197,8 +197,7 @@ export default function AIBotWidget() {
         {
           id: crypto.randomUUID(),
           role: "assistant",
-          content:
-            "Sorry, something went wrong while generating a response.",
+          content: "Sorry, I couldn't generate a response.",
         },
       ]);
     } finally {
@@ -299,13 +298,7 @@ export default function AIBotWidget() {
                 </div>
               )}
 
-              {error && (
-                <div className="justify-self-start">
-                  <div className="border-[3px] border-black bg-[#ef4444] px-3 py-2 font-bold text-white shadow-[4px_4px_0px_black]">
-                    {error}
-                  </div>
-                </div>
-              )}
+             
             </div>
           </div>
 
@@ -324,7 +317,7 @@ export default function AIBotWidget() {
           setInput(q);
           setShowQuickQuestions(false);
         }}
-        className="border-[3px] border-black bg-[#f6e27f] px-2 py-1 text-xs font-black shadow-[3px_3px_0px_black]"
+        className="border-[3px] border-black bg-[#f6e27f] px-2 py-1 text-xs font-black shadow-[3px_3px_0px_black] cursor-pointer transition-transform duration-100 hover:translate-x-1 hover:-translate-y-1 active:translate-x-0 active:translate-y-0"
       >
         {q}
       </button>
@@ -355,7 +348,7 @@ export default function AIBotWidget() {
               <button
                 type="submit"
                 disabled={isThinking}
-                className={`${ui.button} ${ui.primaryButton} min-h-[44px] px-4 ${
+                className={`${ui.button} ${ui.primaryButton} min-h-[44px] px-4  cursor-pointer${
                   isThinking ? "cursor-not-allowed opacity-70" : ""
                 }`}
               >

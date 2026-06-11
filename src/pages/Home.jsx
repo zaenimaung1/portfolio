@@ -57,11 +57,13 @@ const skillCategories = [
 const skillIconMeta = {
   React: { label: "R", className: "bg-[#61dafb] text-black" },
   JavaScript: { label: "JS", className: "bg-[#f7df1e] text-black" },
-  "Tailwind CSS": { label: "TW", className: "bg-[#38bdf8] text-black" },
+  Tailwind: { label: "TW", className: "bg-[#38bdf8] text-black" },
   CSS: { label: "CSS", className: "bg-[#2563eb] text-white" },
   Bootstrap: { label: "BS", className: "bg-[#7952b3] text-white" },
   "Node.js": { label: "ND", className: "bg-[#3c873a] text-white" },
   "Express.js": { label: "EX", className: "bg-black text-white" },
+  Dart : { label: "D", className: "bg-[#0175c2] text-white" },
+  Flutter : { label: "F", className: "bg-[#4830cb] text-white" },
   PHP: { label: "PHP", className: "bg-[#777bb4] text-white" },
   MongoDB: { label: "MG", className: "bg-[#47a248] text-white" },
   MySQL: { label: "SQL", className: "bg-[#f29111] text-black" },
@@ -174,8 +176,10 @@ export default function Home() {
 
           <div className="mt-8">
   <a
-    href="/Zarni_Maung_CV%20(1).pdf"
-    download="Zarni_Maung_CV.pdf"
+    href="/Zarni_Maung_CV.pdf"
+    target="_blank"
+    rel="noopener noreferrer"
+   // download="Zarni_Maung_CV.pdf"
     className={`${ui.button} ${ui.primaryButton}`}
   >
     Download CV
@@ -378,7 +382,7 @@ export default function Home() {
                     setActiveEndpoint(endpoint);
                     setHasSentRequest(false);
                   }}
-                  className={`border-4 px-3 py-2 text-xs font-black transition active:translate-x-1 active:translate-y-1 active:shadow-none ${
+                  className={`border-4 px-3 py-2 text-xs font-black transition active:translate-x-1 active:translate-y-1 active:shadow-none cursor-pointer ${
                     active
                       ? "bg-lime-300 shadow-[5px_5px_0px_black]"
                       : "bg-white hover:bg-gray-100 shadow-[4px_4px_0px_black]"
@@ -411,7 +415,7 @@ export default function Home() {
             setRequestCount((c) => c + 1);
             setHasSentRequest(true);
           }}
-          className="w-full border-4 border-black bg-cyan-300 px-5 py-3 font-black shadow-[6px_6px_0px_black]
+          className="w-full border-4 border-black bg-cyan-300 px-5 py-3 font-black shadow-[6px_6px_0px_black] cursor-pointer
           hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition"
         >
           <SendIcon fontSize="small" /> {hasSentRequest ? "Sent" : "Send Request"}
