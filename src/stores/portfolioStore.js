@@ -33,36 +33,37 @@ const portfolio = {
     email: "zarnizn5048@gmail.com",
     phone: "+95 9 791 579 929",
    intro:
-  "I build modern and responsive web applications with a focus on clean design, performance, and usability. I enjoy working on both frontend and backend development to create complete web solutions.",
+  "I am a passionate junior full stack web developer with a strong foundation in both frontend and backend technologies. I have experience working on various projects, including a full-stack invoice application and an AI chatbot system. I am eager to continue learning and growing my skills in web development, and I am excited to contribute to innovative projects that make a real-world impact.",
 
 highlights: [
   "Full Stack Learning",
   "Web Applications",
-  "Problem Solving",
+  "Clean and Responsive Design",
+  "Application Performance",
 ],
   },
   skills: {
-    frontend: ["React", "JavaScript", "Tailwind CSS", "CSS", "Bootstrap"],
-    backend: ["Node.js", "Express.js", "PHP"],
+    frontend: ["React", "JavaScript", "Tailwind CSS", "Bootstrap","Dart","Flutter"],
+    backend: ["Node.js", "Express.js", "PHP","Typescript"],
     database: ["MongoDB", "MySQL"],
     tools: ["Git", "Vite", "npm","GitHub"],
   },
   socials: [
     {
       label: "GitHub",
-      value: "github.com/zarni",
+      value: "https://github.com/zaenimaung1",
       url: "https://github.com/zaenimaung1",
       icon: "github",
     },
     {
       label: "LinkedIn",
-      value: "linkedin.com/in/zarni",
+      value: "https://www.linkedin.com/in/zar-ni-7908b4312/",
       url: "https://www.linkedin.com/in/zar-ni-7908b4312/",
       icon: "linkedin",
     },
     {
       label: "Facebook",
-      value: "#",
+      value: "https://www.facebook.com/",
       url: "https://www.facebook.com/",
       icon: "facebook",
       
@@ -95,7 +96,7 @@ highlights: [
     "Real-world business use case"
   ],
   status: "Completed",
-  sourceCodeUrl: "https://github.com/zarni/your-invoice-app"
+  sourceCodeUrl: "https://github.com/zaenimaung1/vite_invoice_app"
     },
     {
       id: 2,
@@ -124,7 +125,7 @@ highlights: [
   role: "Telegram Bot Developer",
   achievement: "Top 10 Project",
   status: "Completed",
-  sourceCodeUrl: "https://github.com/zarni/your-pivot-project",
+  sourceCodeUrl: "https://github.com/zaenimaung1/RAG_Telegram_Frontend_Bot",
     },
     {
   id: 3,
@@ -167,7 +168,7 @@ highlights: [
     "Utilized external data sources for content"
   ],
   status: "Completed",
-  sourceCodeUrl: "https://github.com/zarni/task-tracker",
+  sourceCodeUrl: "https://github.com/zaenimaung1/BayDin",
 },
 
   ],
@@ -176,8 +177,8 @@ highlights: [
   description : "Building responsive and modern websites using React, Node.js, Express, and modern web technologies."
   },
   {
-    label: "API Development",
-    description : "Creating RESTful APIs with Node.js and Express for seamless frontend-backend communication."
+    label: "Mobile Development",
+    description : " mobile applications with Flutter and Dart for cross-platform compatibility."
   },
   {
     label: "Full Stack Development",
