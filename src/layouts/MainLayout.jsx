@@ -1,126 +1,42 @@
 import CloseIcon from "@mui/icons-material/Close";
-import HomeIcon from "@mui/icons-material/Home";
-import MailIcon from "@mui/icons-material/Mail";
-import MenuIcon from "@mui/icons-material/Menu";
-import WorkIcon from "@mui/icons-material/Work";
-import { useState } from "react";
+import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
+import MailOutlineRoundedIcon from "@mui/icons-material/MailOutlineRounded";
+import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
+import WorkOutlineRoundedIcon from "@mui/icons-material/WorkOutlineRounded";
+import { useEffect, useState } from "react";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import AIBotWidget from "../components/AIBotWidget";
 import Footer from "../components/Footer";
 import { ui } from "../styles";
 
 const navItems = [
-  { label: "Home", path: "/home", icon: HomeIcon, color: "bg-[#00e5ff]" },
-  { label: "Project", path: "/projects", icon: WorkIcon, color: "bg-[#f6e27f]" },
-  { label: "Contact Me", path: "/contact", icon: MailIcon, color: "bg-[#ff90e8]" },
+  { label: "Home", path: "/home", icon: HomeRoundedIcon },
+  { label: "Work", path: "/projects", icon: WorkOutlineRoundedIcon },
+  { label: "Contact", path: "/contact", icon: MailOutlineRoundedIcon },
 ];
 
 export default function MainLayout() {
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  useEffect(() => { setOpen(false); window.scrollTo({ top: 0, behavior: "smooth" }); }, [location.pathname]);
+  const activePath = (path, active) => active || (path === "/home" && location.pathname === "/");
 
-  const isActivePath = (path, isActive) =>
-    isActive ||
-    (path === "/home" &&
-      (location.pathname === "/" || location.pathname === "/home"));
-
-  return (
-    <div className={ui.shell}>
-      <header className="sticky top-3 z-20 border-4 border-black bg-white p-3 shadow-[8px_8px_0px_black] transition-all duration-200 md:top-6 md:p-4">
-        <div className="flex items-center justify-between gap-3">
-          <NavLink
-            to="/home"
-            className="group inline-flex min-w-0 items-center gap-3 font-black text-black"
-            onClick={() => setOpen(false)}
-          >
-            <span className="grid h-[44px] w-[44px] shrink-0 rotate-[-2deg] place-items-center border-4 border-black bg-[#00e5ff] text-sm font-black shadow-[4px_4px_0px_black] transition-transform duration-200 group-hover:rotate-[2deg]">
-              ZM
-            </span>
-            <span className="truncate text-base tracking-tight sm:text-lg">
-              Zarni Maung
-            </span>
-          </NavLink>
-
-          <button
-            type="button"
-            aria-label={open ? "Close navigation menu" : "Open navigation menu"}
-            aria-expanded={open}
-            onClick={() => setOpen(!open)}
-            className={`grid h-12 w-12 shrink-0 place-items-center border-4 border-black text-2xl font-black shadow-[4px_4px_0px_black] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_black] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[2px_2px_0px_black] md:hidden ${
-              open ? "bg-[#ef4444] text-white" : "bg-[#f6e27f] text-black"
-            }`}
-          >
-            {open ? <CloseIcon fontSize="inherit" /> : <MenuIcon fontSize="inherit" />}
-          </button>
-
-          <nav className="hidden gap-2.5 md:flex">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-
-              return (
-                <NavLink
-                  key={item.path}
-                  to={item.path}
-                  className={({ isActive }) => {
-                    const active = isActivePath(item.path, isActive);
-
-                    return `inline-flex items-center gap-2 border-4 border-black px-3 py-2 font-black transition-all ${
-                      active
-                        ? "translate-y-[2px] bg-[#22c55e] shadow-[4px_4px_0px_black]"
-                        : "bg-[#f1f1f1] hover:-translate-y-1 hover:shadow-[6px_6px_0px_black]"
-                    }`;
-                  }}
-                >
-                  <Icon fontSize="small" />
-                  {item.label}
-                </NavLink>
-              );
-            })}
-          </nav>
-        </div>
-
-        {open && (
-          <nav className="mt-4 grid gap-3 border-t-4 border-black pt-4 md:hidden">
-            {navItems.map((item, index) => {
-              const Icon = item.icon;
-
-              return (
-                <NavLink
-                  key={item.path}
-                  to={item.path}
-                  onClick={() => setOpen(false)}
-                  className={({ isActive }) => {
-                    const active = isActivePath(item.path, isActive);
-
-                    return `group grid grid-cols-[52px_minmax(0,1fr)_auto] items-center gap-3 border-4 border-black p-2.5 font-black text-black shadow-[5px_5px_0px_black] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0px_black] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[2px_2px_0px_black] ${
-                      active ? "bg-[#22c55e]" : "bg-white"
-                    }`;
-                  }}
-                >
-                  <span
-                    className={`grid h-12 w-12 place-items-center border-[3px] border-black text-2xl shadow-[3px_3px_0px_black] ${item.color}`}
-                  >
-                    <Icon fontSize="inherit" />
-                  </span>
-
-                  <span className="truncate text-lg">{item.label}</span>
-
-                  <span className="border-[3px] border-black bg-[#f1f1f1] px-2 py-1 text-xs shadow-[3px_3px_0px_black]">
-                    0{index + 1}
-                  </span>
-                </NavLink>
-              );
-            })}
-          </nav>
-        )}
-      </header>
-
-      <main className="min-h-screen">
-        <Outlet />
-      </main>
-
-      <Footer />
-      <AIBotWidget />
-    </div>
-  );
+  return <div className="min-h-screen overflow-x-clip">
+    <a href="#main-content" className="fixed left-4 top-3 z-[100] -translate-y-24 rounded-lg border-[3px] border-black bg-[#FFE66D] px-4 py-3 font-black shadow-[4px_4px_0_#000] focus:translate-y-0">Skip to content</a>
+    <header className="sticky top-0 z-50 border-b-[3px] border-black bg-[#FFE66D]">
+      <div className={`${ui.shell} flex min-h-[76px] items-center justify-between gap-4 py-3`}>
+        <NavLink to="/home" className="group flex items-center gap-3 rounded-lg focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-black">
+          <span className="grid h-12 w-12 -rotate-2 place-items-center rounded-xl border-[3px] border-black bg-[#67E8F9] text-sm font-black shadow-[4px_4px_0_#000] transition-transform group-hover:rotate-2">ZM</span>
+          <span className="leading-none"><strong className="block text-lg font-black tracking-tight">Zarni Maung</strong><span className="text-[10px] font-black uppercase tracking-[.16em]">Full-stack developer</span></span>
+        </NavLink>
+        <nav aria-label="Primary navigation" className="hidden items-center gap-2 md:flex">
+          {navItems.map(({ label, path, icon }) => { const NavIcon = icon; return <NavLink key={path} to={path} className={({ isActive }) => `${ui.raised} inline-flex min-h-11 items-center gap-2 px-4 py-2 text-sm font-black ${activePath(path, isActive) ? "translate-x-0.5 translate-y-0.5 bg-[#A3E635] shadow-[2px_2px_0_#000]" : "bg-white"}`}><NavIcon fontSize="small" />{label}</NavLink>; })}
+        </nav>
+        <button type="button" aria-label={open ? "Close navigation" : "Open navigation"} aria-expanded={open} onClick={() => setOpen((value) => !value)} className={`${ui.imageButton} md:hidden ${open ? "bg-[#FB7185]" : "bg-white"}`}>{open ? <CloseIcon /> : <MenuRoundedIcon />}</button>
+      </div>
+      {open && <nav aria-label="Mobile navigation" className={`${ui.shell} grid gap-3 border-t-[3px] border-black py-4 md:hidden`}>{navItems.map(({ label, path, icon }, index) => { const NavIcon = icon; return <NavLink key={path} to={path} className={({ isActive }) => `${ui.raised} flex min-h-14 items-center justify-between px-4 ${activePath(path, isActive) ? "bg-[#A3E635]" : "bg-white"}`}><span className="flex items-center gap-3"><NavIcon />{label}</span><span className="text-xs">0{index + 1}</span></NavLink>; })}</nav>}
+    </header>
+    <main id="main-content" className={ui.shell}><Outlet /></main>
+    <Footer /><AIBotWidget />
+  </div>;
 }

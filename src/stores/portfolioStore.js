@@ -9,20 +9,21 @@ import dashboardImage7 from "../assets/images/dashboard7.png";
 import dashboardImage8 from "../assets/images/dashboard8.png";
 import dashboardImage9 from "../assets/images/dashboard9.png";
 import profilePhoto from "../assets/images/zarni.png";
-import pivotImage from "../assets/images/Pivot.webp";
-import pivotAdmin from "../assets/images/pivot-admin.webp";
-import pivotApp from "../assets/images/pivot-app.webp";
-import pivotBot from "../assets/images/pivot-bot.webp";
-import pivotWeb from "../assets/images/pivot-web.webp";
+import pivotImage from "../assets/images/Pivot.png";
+import pivotAdmin from "../assets/images/pivot-admin.png";
+import pivotApp from "../assets/images/pivot-app.png";
+import pivotBot from "../assets/images/pivot-bot.png";
+import pivotWeb from "../assets/images/pivot-web.png";
 import baydinImage from "../assets/images/baydin.png";
 import baydin2 from "../assets/images/baydin2.png";
 import baydin3 from "../assets/images/baydin3.png";
 import baydin4 from "../assets/images/baydin4.png";
 import baydin5 from "../assets/images/baydin5.png";
 import baydin6 from "../assets/images/baydin6.png";
-import softwareClubA from "../assets/images/sfa.png"
-import softwareClub from "../assets/images/sf.png"
-import softwareClub2 from "../assets/images/sf2.png"
+import proverbTutorCover from "../assets/images/Mm-Proverb-1.png";
+import proverbTutor1 from "../assets/images/Mm-Proverb-2.png";
+import proverbTutor2 from "../assets/images/Mm-Proverb-3.png";
+import proverbTutor3 from "../assets/images/Mm-Proverb-4.png";
 
 const portfolio = {
   person: {
@@ -127,20 +128,57 @@ highlights: [
   status: "Completed",
   sourceCodeUrl: "https://github.com/zaenimaung1/RAG_Telegram_Frontend_Bot",
     },
-    {
+   {
   id: 3,
-  title: "PUMyeik Software",
-  image: softwareClubA,
+  title: "Myanmar AI Proverb Tutor",
+  image: proverbTutorCover,
   description:
-    "A software solution for PUMyeik, designed to support collaboration among all students who are passionate about software development",
+    "An AI-powered RAG application that helps users understand Myanmar proverbs through natural conversations, semantic search, and contextual explanations.",
+
   detailDescription:
-    "PUMyeik Software is a project aimed at creating a software solution for PUMyeik, a university in Myanmar. The goal of this project is to provide a platform that supports collaboration among students who are passionate about software development.\n\nThe project is currently in progress, and I am working on developing the core features and functionalities of the application. The software will include tools for project management, communication, and resource sharing to facilitate collaboration among students.\n\nThis project is an opportunity for me to apply my skills in full-stack development while also contributing to a community-driven initiative that promotes learning and collaboration in the field of software development.",
-  detailImages: [softwareClubA,softwareClub,softwareClub2],
-  techStack: ["React", "Node.js", "Express", "MongoDB"],
-   whatILearned: [],
-   highlights: [],
+    "Myanmar AI Proverb Tutor is a Retrieval-Augmented Generation (RAG) application built to preserve and make Myanmar proverbs more accessible through artificial intelligence. Users can ask questions in natural Burmese, search for proverbs by meaning, and receive accurate explanations retrieved from a curated proverb knowledge base.\n\nThe system uses LangChain for retrieval orchestration, ChromaDB for vector search, and a locally hosted Qwen model through Ollama for fast and private inference. It also includes a DOCX ingestion pipeline with automatic metadata generation, enabling administrators to expand the knowledge base without manually editing data.\n\nThis project demonstrates my experience in building production-ready AI applications, including RAG pipelines, vector databases, prompt engineering, FastAPI backend development, asynchronous processing, and modern React frontend development.",
+
+  detailImages: [
+    proverbTutor1,
+    proverbTutor2,
+    proverbTutor3,
+  ],
+
+  techStack: [
+    "React",
+    "TypeScript",
+    "Tailwind CSS",
+    "FastAPI",
+    "LangChain",
+    "ChromaDB",
+    "Ollama",
+    "Qwen",
+    "Python"
+  ],
+
+  whatILearned: [
+    "Built a complete Retrieval-Augmented Generation (RAG) pipeline.",
+    "Implemented semantic search using vector embeddings.",
+    "Integrated a local Large Language Model with Ollama.",
+    "Designed an efficient document ingestion and metadata generation workflow.",
+    "Optimized AI response quality through prompt engineering.",
+    "Developed scalable REST APIs using FastAPI."
+  ],
+
+  highlights: [
+    "AI-powered Myanmar proverb explanations",
+    "Semantic search with vector database",
+    "Supports natural Burmese conversations",
+    "Local LLM integration (Qwen + Ollama)",
+    "Automatic DOCX dataset import",
+    "Metadata generation pipeline",
+    "Modern responsive UI",
+    "Production-ready RAG architecture"
+  ],
+
   status: "In Progress",
-  sourceCodeUrl: "https://github.com/zaenimaung1/Software_club_PUMyeik"
+
+  sourceCodeUrl: "https://github.com/zaenimaung1/Myanmar-Proverbs-RAG"
 },
  {
   id: 4,
