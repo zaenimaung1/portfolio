@@ -98,7 +98,7 @@ export default function AIBotWidget() {
 
   const [isOpen, setIsOpen] = useState(false);
   const [isThinking, setIsThinking] = useState(false);
-  const [error, setError] = useState("");
+  const [, setError] = useState("");
   const [input, setInput] = useState("");
   const [showQuickQuestions, setShowQuickQuestions] = useState(true);
   const [messages, setMessages] = useState([
@@ -212,23 +212,23 @@ export default function AIBotWidget() {
 
  
   return (
-    <div className="fixed bottom-5 left-5 z-[60]">
+    <div className="fixed bottom-5 right-5 z-[60] sm:bottom-7 sm:right-7">
       {!isOpen && (
         <button
           type="button"
           onClick={() => setIsOpen(true)}
           aria-label="Open Zarni AI chat"
-          className="group relative grid min-h-[66px] min-w-[66px] place-items-center border-4 border-black bg-[#ff90e8] shadow-[7px_7px_0_#000000] transition-all duration-200 hover:-translate-x-1 hover:-translate-y-1 hover:bg-[#00e5ff] hover:shadow-[11px_11px_0_#000000] active:translate-x-1 active:translate-y-1 active:shadow-[3px_3px_0_#000000]"
+          className="group relative flex min-h-14 items-center gap-3 rounded-2xl border-[3px] border-black bg-[#FFE66D] p-2 pr-4 text-black shadow-[6px_6px_0_#000] transition-all duration-200 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:bg-[#67E8F9] hover:shadow-[8px_8px_0_#000] active:translate-x-1 active:translate-y-1 active:shadow-[2px_2px_0_#000] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#67E8F9] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
         >
-          <span className="absolute -right-2 -top-2 h-5 w-5 border-[3px] border-black bg-[#22c55e] shadow-[3px_3px_0_#000000]" />
-
-          <span className="grid h-[46px] w-[46px] rotate-[-3deg] place-items-center border-[3px] border-black bg-white text-3xl font-black transition-transform duration-200 group-hover:rotate-[4deg] group-hover:scale-105">
+          <span className="relative grid h-11 w-11 shrink-0 -rotate-2 place-items-center rounded-xl border-[3px] border-black bg-[#FB7185] text-2xl shadow-[3px_3px_0_#000] transition-transform duration-200 group-hover:rotate-2">
             <SocialIcon name="aibot" />
+            <span className="absolute -right-1.5 -top-1.5 h-3.5 w-3.5 rounded-full border-2 border-black bg-[#A3E635]" />
           </span>
-
-          <span className="absolute -bottom-3 left-1/2 -translate-x-1/2 border-[3px] border-black bg-[#f6e27f] px-2 py-0.5 text-[10px] font-black uppercase tracking-wide shadow-[3px_3px_0_#000000]">
-            AI
+          <span className="hidden text-left leading-tight min-[390px]:block">
+            <span className="block text-[10px] font-black uppercase tracking-[0.16em] text-black/60">Online now</span>
+            <span className="block text-sm font-black">Ask Zarni AI</span>
           </span>
+          <span aria-hidden="true" className="ml-1 hidden text-lg font-black transition-transform group-hover:translate-x-0.5 min-[390px]:block">→</span>
         </button>
       )}
 

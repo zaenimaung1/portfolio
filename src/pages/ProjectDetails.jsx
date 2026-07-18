@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { usePortfolioStore } from "../stores/portfolioStore";
 import { ui } from "../styles";
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 import ArticleIcon from "@mui/icons-material/Article";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -315,7 +315,7 @@ export default function ProjectDetails() {
       {isImageViewerOpen && (
         <div className="fixed inset-0 z-50 grid place-items-center bg-black/90 p-5">
 
-          <motion.button
+          <Motion.button
             whileHover={{ y: -4 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setIsImageViewerOpen(false)}
@@ -323,11 +323,11 @@ export default function ProjectDetails() {
             aria-label="Close image viewer"
           >
             <CloseIcon fontSize="inherit" />
-          </motion.button>
+          </Motion.button>
 
           {detailImages.length > 1 && (
             <>
-              <motion.button
+              <Motion.button
                 whileHover={{ y: -4 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={goToPreviousImage}
@@ -335,9 +335,9 @@ export default function ProjectDetails() {
                 aria-label="Previous image"
               >
                 <ArrowBackIcon fontSize="inherit" />
-              </motion.button>
+              </Motion.button>
 
-              <motion.button
+              <Motion.button
                 whileHover={{ y: -4 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={goToNextImage}
@@ -345,7 +345,7 @@ export default function ProjectDetails() {
                 aria-label="Next image"
               >
                 <ArrowForwardIcon fontSize="inherit" />
-              </motion.button>
+              </Motion.button>
             </>
           )}
 
